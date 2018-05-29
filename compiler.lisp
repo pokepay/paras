@@ -17,6 +17,20 @@
   bindings
   body)
 
+(defun package-external-symbols (package)
+  (let ((symbols '()))
+    (do-external-symbols (s package symbols)
+      (push s symbols))))
+
+(defun function-allowed-p (function-name)
+  (let ((package (symbol-package function-name)))
+    (when (find (package-name package)
+                (cons "PARAS/BUILTIN" paras/builtin:*modules*)
+                :test #'string=)
+      (do-external-symbols (symbol package)
+        (when (eq symbol function-name)
+          (return-from function-allowed-p t))))))
+
 (defun compile-code (code &optional (bindings '()))
   (let ((*package* (find-package '#:paras-user)))
     (labels ((recur (code)
@@ -26,7 +40,7 @@
                     (unless (and (symbolp fn)
                                  (handler-case (symbol-function fn)
                                    (cl:undefined-function () nil))
-                                 (eq (nth-value 1 (intern (string fn) '#:paras/builtin)) :external))
+                                 (function-allowed-p fn))
                       ;; The function is not allowed to be called.
                       (error 'undefined-function :name fn))
                     (macroexpand

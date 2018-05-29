@@ -25,3 +25,7 @@ Embeded trivial Lisp-dialect.
 ### Importing Modules
 
 - `use`
+
+## Modules
+
+- `time`
