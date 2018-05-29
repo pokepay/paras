@@ -1,6 +1,6 @@
 # Paras
 
-Embeded trivial Lisp-dialect.
+Embedded trivial Lisp-dialect.
 
 ## Functions
 
