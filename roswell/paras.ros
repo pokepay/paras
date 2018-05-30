@@ -1,0 +1,33 @@
+#!/bin/sh
+#|-*- mode:lisp -*-|#
+#|
+exec ros -Q -- $0 "$@"
+|#
+(progn ;;init forms
+  (ros:ensure-asdf)
+  #+quicklisp (ql:quickload '(:paras) :silent t))
+
+(defpackage #:paras/roswell
+  (:use #:cl))
+(in-package #:paras/roswell)
+
+(defun run-repl ()
+  (loop
+    (format t "~&> ")
+    (force-output)
+    (handler-case
+        (handler-bind ((paras/errors:paras-error
+                         (lambda (e)
+                           (format *error-output* "~&[ERROR] ~A: ~A~2%" (type-of e) e)
+                           (uiop:print-backtrace :condition e))))
+          (let ((code (handler-case (paras:parse)
+                        (paras/errors:end-of-file ()
+                          (format t "~&Bye!~%")
+                          (return)))))
+            (print (paras:execute-form (paras:compile-code code)))))
+      (error ()))))
+
+(defun main (&rest argv)
+  (declare (ignore argv))
+  (run-repl))
+;;; vim: set ft=lisp lisp:

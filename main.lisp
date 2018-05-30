@@ -3,6 +3,7 @@
   (:use #:cl
         #:paras/types)
   (:import-from #:paras/parser
+                #:parse
                 #:parse-string)
   (:import-from #:paras/compiler
                 #:compile-code
@@ -12,6 +13,7 @@
                 #:execution-error)
   (:export #:execute-form
            #:compile-code
+           #:parse
            #:parse-string))
 (in-package #:paras)
 
