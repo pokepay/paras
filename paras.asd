@@ -2,6 +2,7 @@
   :class :package-inferred-system
   :version "0.0.1"
   :author "Eitaro Fukamachi"
+  :license "LLGPL"
   :description "Embeded trivial Lisp interpreter"
   :depends-on ("paras/main")
   :in-order-to ((test-op (test-op "paras/tests"))))
