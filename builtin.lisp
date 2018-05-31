@@ -19,9 +19,13 @@
   `(cl:progn
      ,@(cl:loop :for module :in modules
           :for package := (cl:format nil "~A/~A" :paras/modules module)
-          :collect `(cl:if (asdf:find-system ,(cl:string-downcase package) nil)
-                           (cl:progn
-                             (asdf:load-system ,(cl:string-downcase package))
-                             (cl:use-package ,package :paras-user)
-                             (cl:push ,package *modules*))
-                           (cl:error 'undefined-module :name ,module)))))
+          :collect `(cl:cond
+                      ((cl:find-package ,package)
+                       (cl:use-package ,package :paras-user)
+                       (cl:push ,package *modules*))
+                      ((asdf:find-system ,(cl:string-downcase package) nil)
+                       (asdf:load-system ,(cl:string-downcase package))
+                       (cl:use-package ,package :paras-user)
+                       (cl:push ,package *modules*))
+                      (t
+                       (cl:error 'undefined-module :name ,module))))))
