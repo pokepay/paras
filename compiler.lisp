@@ -10,11 +10,13 @@
   (:export #:compiled-form
            #:compiled-form-bindings
            #:compiled-form-body
-           #:compile-code))
+           #:compile-code
+           #:recompile-form))
 (in-package #:paras/compiler)
 
 (defstruct compiled-form
   bindings
+  code
   body)
 
 (defun package-external-symbols (package)
@@ -33,6 +35,7 @@
 
 (defun compile-code (code &optional (bindings '()))
   (let ((*package* (find-package '#:paras-user)))
+    (check-type code paras-type)
     (labels ((recur (code)
                (typecase code
                  (cons
@@ -55,8 +58,16 @@
                  (otherwise (error 'type-not-allowed :value code)))))
       (make-compiled-form
        :bindings bindings
+       :code code
        :body
        (progv
            (mapcar #'car bindings)
            (mapcar #'cdr bindings)
          (recur code))))))
+
+(defun recompile-form (form &optional (bindings '() bindings-specified-p))
+  (check-type form compiled-form)
+  (compile-code (compiled-form-code form)
+                (if bindings-specified-p
+                    bindings
+                    (compiled-form-bindings form))))

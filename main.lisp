@@ -7,12 +7,14 @@
                 #:parse-string)
   (:import-from #:paras/compiler
                 #:compile-code
+                #:recompile-form
                 #:compiled-form
                 #:compiled-form-body)
   (:import-from #:paras/errors
                 #:execution-error)
   (:export #:execute-form
            #:compile-code
+           #:recompile-form
            #:parse
            #:parse-string))
 (in-package #:paras)
