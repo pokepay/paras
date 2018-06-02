@@ -50,6 +50,7 @@ T
 
 ### Importing Modules
 
+- `require`
 - `use`
 
 ## Modules
