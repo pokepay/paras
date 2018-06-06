@@ -12,11 +12,19 @@
                 #:compiled-form-body)
   (:import-from #:paras/errors
                 #:execution-error)
+  (:import-from #:paras/builtin
+                #:use
+                #:require
+                #:*modules*)
   (:export #:execute-form
            #:compile-code
            #:recompile-form
            #:parse
-           #:parse-string))
+           #:parse-string
+
+           #:use
+           #:require
+           #:*modules*))
 (in-package #:paras)
 
 (defun execute-form (form)
