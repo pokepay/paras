@@ -12,6 +12,7 @@
            #:<=
            #:+
            #:-
+           #:*
            #:if
            #:progn))
 (in-package #:paras/modules/core)
@@ -43,6 +44,9 @@
 
 (defun - (number &rest more-numbers)
   (apply #'cl:- number more-numbers))
+
+(defun * (number &rest more-numbers)
+  (apply #'cl:* number more-numbers))
 
 
 ;;
