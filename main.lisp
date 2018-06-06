@@ -12,10 +12,10 @@
                 #:compiled-form-body)
   (:import-from #:paras/errors
                 #:execution-error)
-  (:import-from #:paras/builtin
-                #:use
-                #:require
-                #:*modules*)
+  (:shadowing-import-from #:paras/builtin
+                          #:use
+                          #:require
+                          #:*modules*)
   (:export #:execute-form
            #:compile-code
            #:recompile-form
