@@ -25,10 +25,14 @@
       (push s symbols))))
 
 (defun function-allowed-p (function-name)
-  (let ((package (symbol-package function-name)))
-    (when (find (package-name package)
-                (cons "PARAS/BUILTIN" paras/builtin:*modules*)
-                :test #'string=)
+  (let ((package (symbol-package function-name))
+        (modules (cons "PARAS/BUILTIN" paras/builtin:*modules*)))
+    (when (or (find (package-name package)
+                    modules
+                    :test #'string=)
+              (some (lambda (module-name)
+                      (find module-name (package-nicknames package) :test 'equal))
+                    modules))
       (do-external-symbols (symbol package)
         (when (eq symbol function-name)
           (return-from function-allowed-p t))))))
