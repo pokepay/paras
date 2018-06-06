@@ -21,6 +21,7 @@
            #:recompile-form
            #:parse
            #:parse-string
+           #:execute-string
 
            #:use
            #:require
@@ -36,3 +37,6 @@
           (paras-variable-type (symbol-value code))
           (paras-constant-type code))
       (error (e) (error 'execution-error :internal-error e)))))
+
+(defun execute-string (string)
+  (execute-form (compile-code (parse-string string))))
