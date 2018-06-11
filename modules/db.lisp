@@ -2,7 +2,8 @@
   (:use #:cl)
   (:import-from #:cl-dbi)
   (:export #:*db*
-           #:fetch))
+           #:fetch
+           #:execute))
 (in-package #:paras/modules/db)
 
 (defvar *db*)
@@ -11,3 +12,6 @@
   (second
    (dbi:fetch
     (apply #'dbi:execute (dbi:prepare *db* sql) binds))))
+
+(defun execute (sql &optional binds)
+  (apply #'dbi:do-sql *db* sql binds))
