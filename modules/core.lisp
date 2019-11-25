@@ -10,6 +10,9 @@
            #:or
            #:<
            #:<=
+           #:>
+           #:>=
+           #:floor
            #:+
            #:-
            #:*
@@ -35,6 +38,11 @@
 (defun <= (number &rest more-numbers)
   (apply #'cl:<= number more-numbers))
 
+(defun > (number &rest more-numbers)
+  (apply #'cl:> number more-numbers))
+
+(defun >= (number &rest more-numbers)
+  (apply #'cl:>= number more-numbers))
 
 ;;
 ;; Operators
@@ -48,6 +56,8 @@
 (defun * (number &rest more-numbers)
   (apply #'cl:* number more-numbers))
 
+(defun floor (number)
+  (cl:nth-value 0 (cl:floor number)))
 
 ;;
 ;; Controls
