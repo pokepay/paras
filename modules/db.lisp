@@ -11,7 +11,7 @@
 (defun fetch (sql &optional binds)
   (second
    (dbi:fetch
-    (apply #'dbi:execute (dbi:prepare *db* sql) binds))))
+    (dbi:execute (dbi:prepare *db* sql) binds))))
 
 (defun execute (sql &optional binds)
-  (apply #'dbi:do-sql *db* sql binds))
+  (dbi:do-sql *db* sql binds))
