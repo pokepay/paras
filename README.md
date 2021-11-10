@@ -56,6 +56,7 @@ T
 
 ## Modules
 
+- `list`
 - `time`
 - `db`
 
