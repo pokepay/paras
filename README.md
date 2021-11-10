@@ -56,6 +56,7 @@ T
 
 ## Modules
 
+- `set`
 - `time`
 - `db`
 
