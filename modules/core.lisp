@@ -3,6 +3,7 @@
                 #:defun
                 #:defmacro
                 #:&rest
+                #:&body
                 #:&optional
                 #:apply)
   (:export #:equal
@@ -17,7 +18,9 @@
            #:-
            #:*
            #:if
-           #:progn))
+           #:when
+           #:progn
+           #:let))
 (in-package #:paras/modules/core)
 
 ;;
@@ -65,5 +68,11 @@
 (defmacro if (test then &optional else)
   `(cl:if ,test ,then ,else))
 
-(defmacro progn (&rest forms)
+(defmacro when (test &body forms)
+  `(cl:when ,test ,@forms))
+
+(defmacro progn (&body forms)
   `(cl:progn ,@forms))
+
+(defmacro let ((&rest bindings) &body forms)
+  `(cl:let* ,bindings ,@forms))
