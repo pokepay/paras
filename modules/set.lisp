@@ -7,10 +7,10 @@
 (in-package #:paras/modules/set)
 
 (defun intersection (list1 list2)
-  (cl:intersection list1 list2 :test 'equal))
+  (cl:intersection list1 list2 :test 'cl:equal))
 
 (defun union (list1 list2)
-  (cl:union list1 list2 :test 'equal))
+  (cl:union list1 list2 :test 'cl:equal))
 
 (defun difference (list1 list2)
-  (cl:set-difference list1 list2 :test 'equal))
+  (cl:set-difference list1 list2 :test 'cl:equal))
