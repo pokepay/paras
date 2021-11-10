@@ -47,7 +47,9 @@ T
 ### Controls
 
 - `progn`
+- `when`
 - `if`
+- `let`
 
 ### Importing Modules
 

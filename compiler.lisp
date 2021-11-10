@@ -50,9 +50,11 @@
                                  (function-allowed-p fn))
                       ;; The function is not allowed to be called.
                       (error 'undefined-function :name fn))
-                    (macroexpand
-                     (cons fn
-                           (mapcar #'recur (rest code))))))
+                    (if (macro-function fn)
+                        (macroexpand code)
+                        (macroexpand
+                          (cons fn
+                                (mapcar #'recur (rest code)))))))
                  (paras-variable-type
                   (handler-case (symbol-value code)
                     (cl:unbound-variable ()
