@@ -26,7 +26,7 @@
 
 (defun function-allowed-p (function-name)
   (let ((package (symbol-package function-name))
-        (modules (cons "PARAS/BUILTIN" paras/builtin:*modules*)))
+        (modules (list* "PARAS/SPECIAL" "PARAS/BUILTIN" paras/builtin:*modules*)))
     (when (or (find (package-name package)
                     modules
                     :test #'string=)

@@ -1,6 +1,8 @@
 (defpackage #:paras/parser
   (:use #:cl
         #:paras/types)
+  (:shadowing-import-from #:paras/special
+                          #:quote)
   (:shadowing-import-from #:paras/errors
                           #:parser-error
                           #:end-of-file
@@ -13,10 +15,14 @@
            #:parse))
 (in-package #:paras/parser)
 
+(defun quote-reader (stream char)
+  `(quote ,(read stream t nil t)))
+
 (defreadtable paras
   (:macro-char #\( (get-macro-character #\())
   (:macro-char #\) (get-macro-character #\)))
-  (:macro-char #\" (get-macro-character #\")))
+  (:macro-char #\" (get-macro-character #\"))
+  (:macro-char #\' #'quote-reader))
 
 (defun parse (&optional (stream *standard-input*))
   (let ((*readtable* (find-readtable 'paras))
