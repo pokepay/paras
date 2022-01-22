@@ -44,4 +44,4 @@
 (defun second-of (time) (timestamp-second time))
 (defun zone-of (time) (timestamp-zone time))
 (defun day-of-week (time)
-  (aref #("Mon" "Tue" "Wed" "Thu" "Fri" "Sat") (timestamp-day-of-week time)))
+  (aref #("Mon" "Tue" "Wed" "Thu" "Fri" "Sat" "Sun") (timestamp-day-of-week time)))
