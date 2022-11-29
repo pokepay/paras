@@ -33,6 +33,7 @@ T
 ### Conditions
 
 - `equal`
+- `not`
 - `and`
 - `or`
 - `<`
