@@ -7,6 +7,7 @@
                 #:&optional
                 #:apply)
   (:export #:equal
+           #:not
            #:and
            #:or
            #:<
@@ -28,6 +29,9 @@
 
 (defun equal (x y)
   (cl:equal x y))
+
+(defun not (object)
+  (cl:not object))
 
 (defmacro and (&rest forms)
   `(cl:and ,@forms))
